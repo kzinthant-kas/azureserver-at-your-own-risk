@@ -1,0 +1,32 @@
+name: Azure Server Build
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 9999
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Copying important files
+        run: |
+          copy D:\a\myazureserver\myazureserver\Files\nssm.exe C:\Windows\System32
+          copy D:\a\myazureserver\myazureserver\Files\ngrok.exe C:\Windows\System32
+      - name: Connecting to the tunnel server
+        run: C:\Windows\System32\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+        env:
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      - name: Creating YAML file
+        run: start D:\a\myazureserver\myazureserver\Files\NGROK-US.bat
+      - name: Enabling Remote View
+        run: |
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+          Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+      - name: Creating Tunnel
+        run: sc start ngrok
+      - name: Connecting Azure
+        run: cmd /c D:\a\myazureserver\myazureserver\Files\NGROK-CHECK.bat
+      - name: Configured by Alphakas.
+        run: cmd /c D:\a\myazureserver\myazureserver\Files\loop.bat
