@@ -18,7 +18,7 @@ jobs:
         env:
           NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
       - name: Creating YAML file
-        run: start D:\a\myazureserver\myazureserver\Files\NGROK-US.bat
+        run: start D:\a\${{ github.event.repository.name }}\${{ github.event.repository.name }}\Files\NGROK-US.bat
       - name: Enabling Remote View
         run: |
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
