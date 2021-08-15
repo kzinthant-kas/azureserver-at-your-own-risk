@@ -2,7 +2,7 @@
 net config server /srvcomment:"Windows Azure VM" > out.txt 2>&1
 REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
 net user kzinthant kzinthant /add >nul
-net localgroup administrators kzinthant /add >nul
+net localgroup administrators kzinthant123!@# /add >nul
 echo IP:
 tasklist | find /i "ngrok.exe" >Nul && curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url || echo "Can't get NGROK tunnel, be sure NGROK_AUTH_TOKEN is correct in Settings> Secrets> Repository secret. Maybe your previous VM still running: https://dashboard.ngrok.com/status/tunnels " 
 echo User: kzinthant
