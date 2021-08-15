@@ -11,8 +11,8 @@ jobs:
       - uses: actions/checkout@v1
       - name: Copying important files
         run: |
-          copy D:\a\myazureserver\myazureserver\Files\nssm.exe C:\Windows\System32
-          copy D:\a\myazureserver\myazureserver\Files\ngrok.exe C:\Windows\System32
+          copy D:\a\${{github.repository}}\${{github.repository}}\Files\nssm.exe C:\Windows\System32
+          copy D:\a\${{github.repository}}\${{github.repository}}\Files\ngrok.exe C:\Windows\System32
       - name: Connecting to the tunnel server
         run: C:\Windows\System32\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
         env:
@@ -27,6 +27,6 @@ jobs:
       - name: Creating Tunnel
         run: sc start ngrok
       - name: Connecting Azure
-        run: cmd /c D:\a\myazureserver\myazureserver\Files\NGROK-CHECK.bat
+        run: cmd /c D:\a\${{github.repository}}\${{github.repository}}\Files\NGROK-CHECK.bat
       - name: Configured by Alphakas.
-        run: cmd /c D:\a\myazureserver\myazureserver\Files\loop.bat
+        run: cmd /c D:\a\${{github.repository}}\${{github.repository}}\Files\loop.bat
