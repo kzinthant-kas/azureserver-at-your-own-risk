@@ -28,5 +28,5 @@ jobs:
         run: sc start ngrok
       - name: Connecting Azure
         run: cmd /c D:\a\${{ github.event.repository.name }}\${{ github.event.repository.name }}\Files\NGROK-CHECK.bat
-      - name: Configured by Alphakas.
+      - name: Configured by kzinthant, join t.me/drivetalk.
         run: cmd /c D:\a\${{ github.event.repository.name }}\${{ github.event.repository.name }}\Files\loop.bat
